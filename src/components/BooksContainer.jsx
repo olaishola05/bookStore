@@ -1,12 +1,12 @@
 import React from 'react';
 import Books from './Books';
-import Navigation from './Navigation';
+import AddBook from './AddBook';
 
 function BooksContainer() {
   return (
     <div className="container">
-      <Navigation />
       <Books />
+      <AddBook />
     </div>
   );
 }

@@ -1,9 +1,30 @@
 .links {
   background-color: #fff;
   padding: 0 20px 0 20px;
+  width: 60rem;
+  margin: 0 auto;
   height: 4rem;
+  display: flex;
+  align-items: center;
 
   h1 {
     color: #a5d7ff;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+  }
+
+  .user {
+    justify-self: end;
+    color: yellow;
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
   }
 }
