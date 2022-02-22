@@ -1,0 +1,41 @@
+.links {
+  background-color: #fff;
+  padding: 0 20px 0 20px;
+  width: 96%;
+  margin: 0 auto;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    color: #a5d7ff;
+  }
+
+  .linkscontainer {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+
+    .user {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      border: 1px solid gray;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+
+      .userIcon {
+        color: dodgerblue;
+        font-size: 2rem;
+      }
+    }
+  }
+}
