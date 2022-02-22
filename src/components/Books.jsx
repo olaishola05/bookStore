@@ -36,8 +36,8 @@ const Books = () => {
   };
 
   const deleteBook = (id) => {
-    const bookId = books.find((book) => book.id === id);
-    dispatch(removeBook(bookId));
+    const filteredBook = [...books.find((book) => book.id !== id)];
+    dispatch(removeBook(filteredBook));
   };
 
   return (
@@ -53,11 +53,12 @@ const Books = () => {
                 <div className="interraction">
                   <span>Comment</span>
                   <div>|</div>
-                  <button
+                  <input
                     type="button"
-                    onClick={(e) => deleteBook(e.target.value)}>
-                    Remove
-                  </button>
+                    onClick={() => deleteBook(book.id)}
+                    value="Remove"
+                  />
+
                   <div>|</div>
                   <span>Edit</span>
                 </div>
