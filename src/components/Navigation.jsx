@@ -11,18 +11,20 @@ const Navigation = () => {
     <>
       <header className="links">
         <h1>Bookstore CMS</h1>
-        <ul>
-          {links.map((link) => (
-            <li key={link.id}>
-              <NavLink to={link.path} exact="true">
-                {link.text}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <div className="user">
-          <MdPerson />
-        </div>
+        <nav className="linkscontainer">
+          <ul>
+            {links.map((link) => (
+              <li key={link.id}>
+                <NavLink to={link.path} exact="true">
+                  {link.text}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <div className="user">
+            <MdPerson className="userIcon" />
+          </div>
+        </nav>
       </header>
     </>
   );

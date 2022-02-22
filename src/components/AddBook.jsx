@@ -1,15 +1,15 @@
 import React from 'react';
+import Select from 'react-select';
 
 function AddBook() {
+  const options = [{ value: 'Categories', label: 'Categories' }];
   return (
     <form>
       <label htmlFor="name">
-        Add new Book
-        <input type="text" name="name" />
+        ADD NEW BOOK
+        <input type="text" name="name" placeholder="Book title" />
       </label>
-      <select name="categories" id="">
-        {/* <option value="select" /> */}
-      </select>
+      <Select options={options} placeholder="Category" />
       <input type="submit" value="ADD BOOK" />
     </form>
   );

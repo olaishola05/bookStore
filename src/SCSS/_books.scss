@@ -1,6 +1,32 @@
 .books {
   width: 80%;
-  background-color: #fff;
   margin: 0 auto;
-  margin-top: 1.3rem;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      background-color: #fff;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .interraction {
+      display: flex;
+    }
+
+    .percentage {
+      display: flex;
+      align-items: center;
+
+      .completion {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 }

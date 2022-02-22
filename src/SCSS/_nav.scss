@@ -1,7 +1,7 @@
 .links {
   background-color: #fff;
   padding: 0 20px 0 20px;
-  width: 60rem;
+  width: 96%;
   margin: 0 auto;
   height: 4rem;
   display: flex;
@@ -11,20 +11,31 @@
     color: #a5d7ff;
   }
 
-  ul {
-    list-style: none;
+  .linkscontainer {
+    width: 70%;
     display: flex;
-    gap: 10px;
-  }
+    justify-content: space-between;
 
-  .user {
-    justify-self: end;
-    color: yellow;
-    width: 40px;
-    height: 40px;
-    border: 1px solid red;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+
+    .user {
+      display: flex;
+      width: 40px;
+      height: 40px;
+      border: 1px solid gray;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+
+      .userIcon {
+        color: dodgerblue;
+        font-size: 2rem;
+      }
+    }
   }
 }
