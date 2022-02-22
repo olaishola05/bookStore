@@ -17,7 +17,7 @@ const Books = () => {
       title: 'Dune',
       author: 'Frank Herbert',
       completion: '8',
-      chapter: '3 A Lesson Learned',
+      chapter: '3 "A Lesson Learned"',
     },
     {
       genre: 'Economy',

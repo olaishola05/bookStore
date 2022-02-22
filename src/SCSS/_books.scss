@@ -1,5 +1,5 @@
 .books {
-  width: 80%;
+  width: 83%;
   margin: 0 auto;
 
   ul {
@@ -27,6 +27,10 @@
         display: flex;
         flex-direction: column;
       }
+    }
+
+    .chapter span {
+      text-transform: uppercase;
     }
   }
 }
