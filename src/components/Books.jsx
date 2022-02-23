@@ -1,48 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import AddBook from './AddBook';
+import { addBook, removeBook } from '../redux/books/books';
 
 const Books = () => {
-  const books = [
-    {
-      genre: 'Action',
-      title: 'The Hunger Games',
-      author: 'Suzanne Collins',
-      completion: '64',
-      chapter: '17',
-    },
-    {
-      genre: 'Science Fiction',
-      title: 'Dune',
-      author: 'Frank Herbert',
-      completion: '8',
-      chapter: '3 "A Lesson Learned"',
-    },
-    {
+  const initValues = {
+    title: '',
+    author: '',
+  };
+
+  const [values, setValues] = useState(initValues);
+  const dispatch = useDispatch();
+  const bookStore = useSelector((state) => state.books);
+
+  const handleTitleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const addNewBook = (title, author) => {
+    const newBook = {
+      id: uuidv4(),
       genre: 'Economy',
-      title: 'Capital in the Twenty-First Century',
-      author: 'Sussane Collins',
+      title,
+      author,
       completion: '0',
       chapter: 'Introduction',
-    },
-  ];
+    };
+
+    dispatch(addBook(newBook));
+  };
+
+  const deleteBook = (id) => {
+    dispatch(removeBook(id));
+  };
+
   return (
     <div className="bookscontainer">
       <div className="books">
         <ul>
-          {books.map((book) => (
-            <li key={book.genre}>
+          {bookStore.map((book) => (
+            <li key={book.id}>
               <div>
                 <span>{book.genre}</span>
                 <h2>{book.title}</h2>
                 <span>{book.author}</span>
                 <div className="interraction">
-                  <span>Comment</span>
+                  <input type="button" value="Comment" />
                   <div>|</div>
-                  <span>Remove</span>
+                  <input
+                    type="button"
+                    value="Remove"
+                    onClick={() => deleteBook(book.id)}
+                  />
+
                   <div>|</div>
-                  <span>Edit</span>
+                  <input type="button" value="Edit" />
                 </div>
               </div>
 
@@ -67,7 +86,12 @@ const Books = () => {
           ))}
         </ul>
         <hr />
-        <AddBook />
+        <AddBook
+          value={values}
+          handleTitleChange={handleTitleChange}
+          addNewBookProp={addNewBook}
+          setValues={setValues}
+        />
       </div>
     </div>
   );
