@@ -3,19 +3,20 @@
 import React, { useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import books from '../JS/books';
 import AddBook from './AddBook';
 import { addBook, removeBook } from '../redux/books/books';
 
-const initValues = {
-  title: '',
-  author: '',
-};
 const Books = () => {
+  const initValues = {
+    title: '',
+    author: '',
+  };
+
   const [values, setValues] = useState(initValues);
   const dispatch = useDispatch();
+  const bookStore = useSelector((state) => state.books);
 
   const handleTitleChange = (e) => {
     const { name, value } = e.target;
@@ -28,39 +29,41 @@ const Books = () => {
   const addNewBook = (title, author) => {
     const newBook = {
       id: uuidv4(),
+      genre: 'Economy',
       title,
       author,
+      completion: '0',
+      chapter: 'Introduction',
     };
 
     dispatch(addBook(newBook));
   };
 
   const deleteBook = (id) => {
-    const filteredBook = [...books.find((book) => book.id !== id)];
-    dispatch(removeBook(filteredBook));
+    dispatch(removeBook(id));
   };
 
   return (
     <div className="bookscontainer">
       <div className="books">
         <ul>
-          {books.map((book) => (
+          {bookStore.map((book) => (
             <li key={book.id}>
               <div>
                 <span>{book.genre}</span>
                 <h2>{book.title}</h2>
                 <span>{book.author}</span>
                 <div className="interraction">
-                  <span>Comment</span>
+                  <input type="button" value="Comment" />
                   <div>|</div>
                   <input
                     type="button"
-                    onClick={() => deleteBook(book.id)}
                     value="Remove"
+                    onClick={() => deleteBook(book.id)}
                   />
 
                   <div>|</div>
-                  <span>Edit</span>
+                  <input type="button" value="Edit" />
                 </div>
               </div>
 
