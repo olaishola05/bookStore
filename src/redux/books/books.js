@@ -1,13 +1,15 @@
 import axios from 'axios';
-import books from '../../JS/books';
+// import books from '../../JS/books';
 
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
 const BASE_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi';
-const API_KEY = '';
-const FETCH_SUCCESS = 'bookStore/books/FETCH_SUCCESS';
-const FETCH_FAIL = 'bookStore/books/FETCH_FAIL';
-const FETCH_STARTED = 'bookStore/books/FETCH_STARTED';
+const APP_KEY = 'XVV4BFkGhlfwaPhIL9fz';
+const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
+const FETCH_BOOKS_FAIL = 'bookStore/books/FETCH_BOOKS_FAIL';
+const FETCH_BOOKS_STARTED = 'bookStore/books/FETCH_BOOKS_STARTED';
+
+const initState = [];
 
 export const addBook = (payload) => ({
   type: ADD_BOOK,
@@ -20,35 +22,63 @@ export const removeBook = (payload) => ({
 });
 
 const fetchStarted = () => ({
-  type: FETCH_STARTED,
+  type: FETCH_BOOKS_STARTED,
 });
 
 const fetchSuccess = (books) => ({
-  type: FETCH_SUCCESS,
+  type: FETCH_BOOKS_SUCCESS,
   payload: books,
 });
 
 const fetchFailed = (error) => ({
-  type: FETCH_FAIL,
+  type: FETCH_BOOKS_FAIL,
   error,
 });
 
-const fetchBooks = () => async (dispatch) => {
+const convertResponseToArray = (response) => {
+  const booksArray = [];
+  const books = Object.keys(response);
+  for (let i = 0; i < books.length; i += 1) {
+    const id = books[i];
+    const { title, category } = response[id][0];
+    booksArray.push({ id, title, category });
+  }
+
+  return booksArray;
+};
+
+export const fetchBooks = () => async (dispatch) => {
   dispatch(fetchStarted());
 
   try {
     const response = await axios({
       method: 'get',
       baseURL: BASE_URL,
-      url: `/apps/${API_KEY}/books`,
+      url: `/apps/${APP_KEY}/books`,
     });
-    dispatch(fetchSuccess(response.data));
+    dispatch(fetchSuccess(convertResponseToArray(response.data)));
   } catch (error) {
     dispatch(fetchFailed(error.toString()));
   }
 };
 
-const reducer = (state = books, action) => {
+export const addBookToAPI = (book) => async (dispatch) => {
+  try {
+    const response = await axios({
+      method: 'post',
+      baseURL: BASE_URL,
+      url: `/apps/${APP_KEY}/books`,
+      data: book,
+    });
+    console.log(response.status);
+    // dispatch(addBook(response));
+    if (response.status === 201) dispatch(addBook(book));
+  } catch (error) {
+    console.log(error.toString());
+  }
+};
+
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_BOOK:
       return [...state, action.payload];
@@ -56,10 +86,13 @@ const reducer = (state = books, action) => {
     case REMOVE_BOOK:
       return state.filter((book) => book.id !== action.payload);
 
-    case FETCH_SUCCESS:
+    case FETCH_BOOKS_STARTED:
+      return state;
+
+    case FETCH_BOOKS_SUCCESS:
       return [...action.payload];
 
-    case FETCH_FAIL:
+    case FETCH_BOOKS_FAIL:
       return [];
 
     default:

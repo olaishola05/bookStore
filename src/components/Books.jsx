@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+/* eslint-disable object-curly-newline */
+import React, { useState, useEffect } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import AddBook from './AddBook';
-import { addBook, removeBook } from '../redux/books/books';
+import { removeBook, fetchBooks, addBookToAPI } from '../redux/books/books';
 
+const initValues = {
+  title: '',
+  author: '',
+};
 const Books = () => {
-  const initValues = {
-    title: '',
-    author: '',
-  };
-
   const [values, setValues] = useState(initValues);
   const dispatch = useDispatch();
-  const bookStore = useSelector((state) => state.books);
 
   const handleTitleChange = (e) => {
     const { name, value } = e.target;
@@ -25,21 +24,25 @@ const Books = () => {
   };
 
   const addNewBook = (title, author) => {
+    const id = uuidv4();
     const newBook = {
-      id: uuidv4(),
-      genre: 'Economy',
+      item_id: id,
+      category: 'Economy',
       title,
       author,
-      completion: '0',
-      chapter: 'Introduction',
     };
-
-    dispatch(addBook(newBook));
+    dispatch(addBookToAPI(newBook));
   };
 
   const deleteBook = (id) => {
     dispatch(removeBook(id));
   };
+
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, []);
+
+  const bookStore = useSelector((state) => state.books);
 
   return (
     <div className="bookscontainer">
@@ -48,17 +51,13 @@ const Books = () => {
           {bookStore.map((book) => (
             <li key={book.id}>
               <div>
-                <span>{book.genre}</span>
+                <span>{book.category}</span>
                 <h2>{book.title}</h2>
                 <span>{book.author}</span>
                 <div className="interraction">
                   <input type="button" value="Comment" />
                   <div>|</div>
-                  <input
-                    type="button"
-                    value="Remove"
-                    onClick={() => deleteBook(book.id)}
-                  />
+                  <input type="button" value="Remove" onClick={() => deleteBook(book.id)} />
 
                   <div>|</div>
                   <input type="button" value="Edit" />
