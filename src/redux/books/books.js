@@ -8,6 +8,8 @@ const APP_KEY = 'XVV4BFkGhlfwaPhIL9fz';
 const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
 const FETCH_BOOKS_FAIL = 'bookStore/books/FETCH_BOOKS_FAIL';
 const FETCH_BOOKS_STARTED = 'bookStore/books/FETCH_BOOKS_STARTED';
+const ADD_BOOK_API_SUCCESS = 'bookStore/books/ADD_BOOK_API_SUCCESS';
+const ADD_BOOK_API_FAIL = 'bookStore/books/ADD_BOOK_API_FAIL';
 
 const initState = [];
 
@@ -70,9 +72,22 @@ export const addBookToAPI = (book) => async (dispatch) => {
       url: `/apps/${APP_KEY}/books`,
       data: book,
     });
-    console.log(response.status);
-    // dispatch(addBook(response));
     if (response.status === 201) dispatch(addBook(book));
+    dispatch({ type: ADD_BOOK_API_SUCCESS });
+  } catch (error) {
+    dispatch({ type: ADD_BOOK_API_FAIL, payload: error });
+  }
+};
+
+export const deleteBookFromAPI = (id) => async (dispatch) => {
+  try {
+    await axios({
+      method: 'delete',
+      baseURL: BASE_URL,
+      url: `/apps/${APP_KEY}/books/${id}`,
+    });
+    console.log('Book deleted');
+    dispatch(removeBook(id));
   } catch (error) {
     console.log(error.toString());
   }
@@ -90,10 +105,17 @@ const reducer = (state = initState, action) => {
       return state;
 
     case FETCH_BOOKS_SUCCESS:
-      return [...action.payload];
+      return [...state, ...action.payload];
 
     case FETCH_BOOKS_FAIL:
       return [];
+
+    case ADD_BOOK_API_SUCCESS:
+      return [...state, ...action.payload];
+
+    case ADD_BOOK_API_FAIL:
+      console.log(action.payload);
+      return state;
 
     default:
       return state;

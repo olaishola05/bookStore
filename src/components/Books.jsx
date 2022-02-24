@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import AddBook from './AddBook';
-import { removeBook, fetchBooks, addBookToAPI } from '../redux/books/books';
+import { deleteBookFromAPI, fetchBooks, addBookToAPI } from '../redux/books/books';
 
 const initValues = {
   title: '',
@@ -35,7 +35,7 @@ const Books = () => {
   };
 
   const deleteBook = (id) => {
-    dispatch(removeBook(id));
+    dispatch(deleteBookFromAPI(id));
   };
 
   useEffect(() => {
