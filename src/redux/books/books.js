@@ -75,7 +75,7 @@ export const addBookToAPI = (book) => async (dispatch) => {
     if (response.status === 201) dispatch(addBook(book));
     dispatch({ type: ADD_BOOK_API_SUCCESS });
   } catch (error) {
-    dispatch({ type: ADD_BOOK_API_FAIL, payload: error });
+    dispatch({ type: ADD_BOOK_API_FAIL });
   }
 };
 
@@ -86,10 +86,9 @@ export const deleteBookFromAPI = (id) => async (dispatch) => {
       baseURL: BASE_URL,
       url: `/apps/${APP_KEY}/books/${id}`,
     });
-    console.log('Book deleted');
     dispatch(removeBook(id));
   } catch (error) {
-    console.log(error.toString());
+    error.toString();
   }
 };
 
@@ -105,7 +104,7 @@ const reducer = (state = initState, action) => {
       return state;
 
     case FETCH_BOOKS_SUCCESS:
-      return [...state, ...action.payload];
+      return [...action.payload];
 
     case FETCH_BOOKS_FAIL:
       return [];
@@ -114,7 +113,6 @@ const reducer = (state = initState, action) => {
       return [...state, ...action.payload];
 
     case ADD_BOOK_API_FAIL:
-      console.log(action.payload);
       return state;
 
     default:

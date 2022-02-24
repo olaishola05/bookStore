@@ -1,17 +1,16 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
+import bookGenres from '../JS/books';
 
-function AddBook({ value, handleTitleChange, addNewBookProp, setValues }) {
-  const options = [{ cats: 'Categories', label: 'Categories' }];
-  const { title, author } = value;
+function AddBook({ value, handleInputChange, addNewBookProp, setValues }) {
+  const { title, author, category } = value;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() && author.trim()) {
-      addNewBookProp(title, author);
-      setValues({ title: '', author: '' });
+    if ((title.trim() && author.trim(), category)) {
+      addNewBookProp(title, category, author);
+      setValues({ title: '', author: '', categories: '' });
     } else {
       return 'Fields cannot be empty';
     }
@@ -25,18 +24,27 @@ function AddBook({ value, handleTitleChange, addNewBookProp, setValues }) {
           type="text"
           name="title"
           placeholder="Book title"
-          onChange={handleTitleChange}
+          onChange={handleInputChange}
           value={title}
         />
         <input
           type="text"
           name="author"
           placeholder="Book Author"
-          onChange={handleTitleChange}
+          onChange={handleInputChange}
           value={author}
         />
       </label>
-      <Select options={options} placeholder="Category" />
+      <select name="category" id="categories" onChange={handleInputChange}>
+        <option className="options" hidden>
+          Category
+        </option>
+        {bookGenres.map((genre) => (
+          <option key={genre} value={genre} name="category">
+            {genre}
+          </option>
+        ))}
+      </select>
       <input type="submit" value="ADD BOOK" />
     </form>
   );
@@ -46,8 +54,9 @@ AddBook.propTypes = {
   value: PropTypes.shape({
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
+    category: PropTypes.string,
   }).isRequired,
-  handleTitleChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
   addNewBookProp: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
 };
