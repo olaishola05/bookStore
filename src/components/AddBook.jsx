@@ -3,7 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bookGenres from '../JS/books';
 
-function AddBook({ value, handleInputChange, addNewBookProp, setValues }) {
+function AddBook(props) {
+  const { value, handleInputChange, addNewBookProp, setValues } = props;
   const { title, category, author } = value;
 
   const onSubmit = (e) => {
