@@ -15,7 +15,7 @@ const Book = ({ books }) => {
   return (
     <>
       {books.map((book) => (
-        <li key={book.item_id} id={book.item_id}>
+        <li key={book.id}>
           <div>
             <span>{book.category}</span>
             <h2>{book.title}</h2>
