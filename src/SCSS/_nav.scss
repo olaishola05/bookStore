@@ -1,14 +1,25 @@
 .links {
   background-color: #fff;
   padding: 0 20px 0 20px;
-  width: 96%;
+  width: 62.3rem;
   margin: 0 auto;
-  height: 4rem;
+  height: 5rem;
   display: flex;
   align-items: center;
+  margin-bottom: 7px;
 
   h1 {
-    color: #a5d7ff;
+    width: 15rem;
+    height: 2.313rem;
+    margin: 0.375rem 2.938rem 0.125rem 0;
+    font-family: Montserrat;
+    font-size: 1.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0290ff;
   }
 
   .linkscontainer {
@@ -21,20 +32,40 @@
       display: flex;
       gap: 10px;
       text-transform: uppercase;
+
+      li {
+        width: 3.688rem;
+        height: 1rem;
+        margin: 1.125rem 2.563rem 0.688rem 0;
+        font-family: Montserrat;
+        font-size: 0.813rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 1.9px;
+      }
+
+      a {
+        color: #121212;
+        text-decoration: none;
+      }
     }
 
     .user {
       display: flex;
       width: 40px;
       height: 40px;
-      border: 1px solid gray;
       border-radius: 50%;
       align-items: center;
       justify-content: center;
+      padding: 0.875rem;
+      border: 1px solid #e8e8e8;
 
       .userIcon {
-        color: dodgerblue;
-        font-size: 2rem;
+        width: 2.063rem;
+        height: 2.063rem;
+        color: #0290ff;
       }
     }
   }
