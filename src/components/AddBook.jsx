@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import bookGenres from '../JS/books';
 
 function AddBook({ value, handleInputChange, addNewBookProp, setValues }) {
-  const { title, author, category } = value;
+  const { title, category, author } = value;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if ((title.trim() && author.trim(), category)) {
-      addNewBookProp(title, category, author);
+    if (title.trim() && category) {
+      addNewBookProp(title, category);
       setValues({ title: '', author: '', categories: '' });
     } else {
       return 'Fields cannot be empty';

@@ -7,9 +7,8 @@ const BASE_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/boo
 const APP_KEY = 'XVV4BFkGhlfwaPhIL9fz';
 const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
 const FETCH_BOOKS_FAIL = 'bookStore/books/FETCH_BOOKS_FAIL';
-const FETCH_BOOKS_STARTED = 'bookStore/books/FETCH_BOOKS_STARTED';
-const ADD_BOOK_API_SUCCESS = 'bookStore/books/ADD_BOOK_API_SUCCESS';
-const ADD_BOOK_API_FAIL = 'bookStore/books/ADD_BOOK_API_FAIL';
+// const ADD_BOOK_API_SUCCESS = 'bookStore/books/ADD_BOOK_API_SUCCESS';
+// const ADD_BOOK_API_FAIL = 'bookStore/books/ADD_BOOK_API_FAIL';
 
 const initState = [];
 
@@ -23,18 +22,13 @@ export const removeBook = (payload) => ({
   payload,
 });
 
-const fetchStarted = () => ({
-  type: FETCH_BOOKS_STARTED,
-});
-
 const fetchSuccess = (books) => ({
   type: FETCH_BOOKS_SUCCESS,
   payload: books,
 });
 
-const fetchFailed = (error) => ({
+const fetchFailed = () => ({
   type: FETCH_BOOKS_FAIL,
-  error,
 });
 
 const convertResponseToArray = (response) => {
@@ -50,8 +44,6 @@ const convertResponseToArray = (response) => {
 };
 
 export const fetchBooks = () => async (dispatch) => {
-  dispatch(fetchStarted());
-
   try {
     const response = await axios({
       method: 'get',
@@ -73,9 +65,9 @@ export const addBookToAPI = (book) => async (dispatch) => {
       data: book,
     });
     if (response.status === 201) dispatch(addBook(book));
-    dispatch({ type: ADD_BOOK_API_SUCCESS });
+    // dispatch({ type: ADD_BOOK_API_SUCCESS });
   } catch (error) {
-    dispatch({ type: ADD_BOOK_API_FAIL });
+    dispatch(fetchFailed(error.toString()));
   }
 };
 
@@ -100,19 +92,10 @@ const reducer = (state = initState, action) => {
     case REMOVE_BOOK:
       return state.filter((book) => book.id !== action.payload);
 
-    case FETCH_BOOKS_STARTED:
-      return state;
-
     case FETCH_BOOKS_SUCCESS:
       return [...action.payload];
 
     case FETCH_BOOKS_FAIL:
-      return [];
-
-    case ADD_BOOK_API_SUCCESS:
-      return [...state, ...action.payload];
-
-    case ADD_BOOK_API_FAIL:
       return state;
 
     default:

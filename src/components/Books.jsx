@@ -9,6 +9,7 @@ import Book from './Book';
 
 const Books = () => {
   const initValues = {
+    id: '',
     title: '',
     category: '',
     author: '',
@@ -24,13 +25,14 @@ const Books = () => {
     });
   };
 
-  const addNewBook = (title, category, author) => {
+  const addNewBook = (title, category) => {
     const id = uuidv4();
     const newBook = {
       item_id: id,
+      id,
       category,
       title,
-      author,
+      // author,
     };
     dispatch(addBookToAPI(newBook));
   };
