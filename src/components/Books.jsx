@@ -32,7 +32,6 @@ const Books = () => {
       id,
       category,
       title,
-      // author,
     };
     dispatch(addBookToAPI(newBook));
   };

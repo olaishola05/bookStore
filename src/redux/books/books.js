@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import books from '../../JS/books';
 
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
@@ -7,9 +6,6 @@ const BASE_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/boo
 const APP_KEY = 'XVV4BFkGhlfwaPhIL9fz';
 const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
 const FETCH_BOOKS_FAIL = 'bookStore/books/FETCH_BOOKS_FAIL';
-// const ADD_BOOK_API_SUCCESS = 'bookStore/books/ADD_BOOK_API_SUCCESS';
-// const ADD_BOOK_API_FAIL = 'bookStore/books/ADD_BOOK_API_FAIL';
-
 const initState = [];
 
 export const addBook = (payload) => ({
@@ -65,7 +61,6 @@ export const addBookToAPI = (book) => async (dispatch) => {
       data: book,
     });
     if (response.status === 201) dispatch(addBook(book));
-    // dispatch({ type: ADD_BOOK_API_SUCCESS });
   } catch (error) {
     dispatch(fetchFailed(error.toString()));
   }
