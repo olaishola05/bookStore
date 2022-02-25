@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const books = [
+export const books = [
   {
     id: uuidv4(),
     genre: 'Action',
@@ -27,4 +27,22 @@ const books = [
   },
 ];
 
-export default books;
+// export default books;
+
+const bookGenres = [
+  'Action and Adventure',
+  'Economy',
+  'Classics',
+  'Comic Book',
+  'Graphic Novel',
+  'Detective and Mystery',
+  'Fantasy',
+  'Historical Fiction',
+  'Literary Fiction',
+  'Science Fiction',
+  'Horror',
+  'Romance',
+  'Suspense and Thrillers',
+];
+
+export default bookGenres;
