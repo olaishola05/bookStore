@@ -45,9 +45,7 @@ const Books = () => {
   return (
     <div className="bookscontainer">
       <div className="books">
-        <ul>
-          <Book books={bookStore} />
-        </ul>
+        <Book books={bookStore} />
         <hr />
         <AddBook
           value={values}
