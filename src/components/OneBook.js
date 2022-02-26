@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -16,16 +17,16 @@ function OneBook(props) {
 
   return (
     <>
-      <div>
-        <span>{book.category}</span>
+      <div className="booksection">
+        <span className="genre">{book.category}</span>
         <h2>{book.title}</h2>
-        <span>{book.author || 'Kate Henshaw'}</span>
+        <span className="author">{book.author || 'Kate Henshaw'}</span>
         <div className="interraction">
-          <input type="button" value="Comment" />
-          <div>|</div>
+          <input type="button" value="Comment" id="comment" />
+          <div className="divider"></div>
           <input type="button" value="Remove" onClick={() => deleteBook(book.id)} />
 
-          <div>|</div>
+          <div className="divider"></div>
           <input type="button" value="Edit" />
         </div>
       </div>
@@ -35,16 +36,18 @@ function OneBook(props) {
           <CircularProgressbar value={percentage} />
         </div>
         <div className="completion">
-          <span>{`${percentage}%`}</span>
-          <span>Completed</span>
+          <span className="stats">{`${percentage}%`}</span>
+          <span className="complete">Completed</span>
         </div>
       </div>
+
+      <div className="line"></div>
 
       <div className="chapter">
         <span>Current Chapter</span>
         <p>INTRODUCTION</p>
 
-        <button type="button" className="progress">
+        <button type="button" className="progressBtn">
           UPDATE PROGRESS
         </button>
       </div>
