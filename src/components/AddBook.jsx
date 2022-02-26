@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -49,7 +50,6 @@ function AddBook(props) {
 AddBook.propTypes = {
   value: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
     category: PropTypes.string,
   }).isRequired,
   handleInputChange: PropTypes.func.isRequired,

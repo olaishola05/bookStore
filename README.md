@@ -2,7 +2,7 @@
 
 # BookStore CMS
 
-![bookStore UI](./public/images/bookstore_ui.png)
+![bookStore UI](./public/image/../images/bookstore.gif)
 
 [Demo Link](Coming Soon)
 
